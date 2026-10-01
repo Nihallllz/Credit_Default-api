@@ -85,21 +85,37 @@ new_customer = pd.DataFrame({
         
 
     })
+
 if st.button("Predict"):
-    
     response = requests.post(
-    "http://127.0.0.1:8000/predict",
-    json=new_customer.to_dict(orient="records")[0]
-)
+        "https://credit-default-api-hiel.onrender.com/predict",
+        json=new_customer.to_dict(orient="records")[0]
+    )
+
     result = response.json()
     prediction = result["prediction"]
+
     st.header(prediction)
 
-
-    if prediction[0] == 1:
+    if prediction == 1:
         st.error("Customer is likely to default.")
     else:
         st.success("Customer is unlikely to default.")
+# if st.button("Predict"):
+    
+#     response = requests.post("https://credit-default-api-hiel.onrender.com/predict",
+#         json=new_customer.to_dict(orient="records")[0]
+#     )
+
+#     st.write("Status code:", response.status_code)
+#     st.write("API response:", response.text)
+    # st.header(prediction)
+
+
+    # if prediction == 1:
+    #     st.error("Customer is likely to default.")
+    # else:
+    #     st.success("Customer is unlikely to default.")
 
     # probability = model.predict_proba(new_customer)[0][1]
     # st.write(f"Default Probability: {probability:.2%}")
