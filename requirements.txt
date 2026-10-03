@@ -5,3 +5,5 @@ pydantic
 uvicorn
 scikit-learn
 requests
+pytest
+httpx
